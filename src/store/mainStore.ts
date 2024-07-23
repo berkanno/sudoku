@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 
 export const useMainStore = defineStore("mainStore", () => {
   const sudokuList = ref([] as (number | undefined)[][])
-  const sudokuListTable = ref([] as ({value: number, isShow: boolean})[][])
+  const sudokuListTable = ref([] as ({value: number, isShow: boolean, isAnswerTrue: boolean})[][])
   const logList = ref([] as {text: string, class: string}[])
 
   const getRowDynamicClass = computed(()=> 
@@ -46,7 +46,7 @@ export const useMainStore = defineStore("mainStore", () => {
     if(sudokuList.value.some(e => e.includes(undefined))) createSudokuList()
     else sudokuList.value.forEach((e,i)=> {
       const randomNumberForIsShow = randomTwoNumberCreate(5)
-      sudokuListTable.value[i] = [...e?.map(e => { return { value: (e as number), isShow: randomNumberForIsShow.includes((e as number))}})] 
+      sudokuListTable.value[i] = [...e?.map(e => { return { value: (e as number), isShow: randomNumberForIsShow.includes((e as number)), isAnswerTrue: randomNumberForIsShow.includes((e as number))}})] 
     })
     logList.value = []
     logList.value.push({text: "SAYILAR YERLEŞTİRİLDİ", class: "text-orange-darken-1 text-center text-overline"})

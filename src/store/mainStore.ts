@@ -5,7 +5,7 @@ export const useMainStore = defineStore("mainStore", () => {
   const sudokuList = ref([] as (number | undefined)[][])
   const sudokuListTable = ref([] as ({value: number, isShow: boolean, isAnswerTrue: boolean})[][])
   const logList = ref([] as {text: string, class: string}[])
-
+  const sudokuLevel = ref(3)
   const getRowDynamicClass = computed(()=> 
     (index: number)=> {
       if([0].includes(index)) return "border-t-lg border-b-0 border-e-0 border-s-0 border-t-black border-t-opacity-100"
@@ -44,13 +44,14 @@ export const useMainStore = defineStore("mainStore", () => {
       }
     })
     if(sudokuList.value.some(e => e.includes(undefined))) createSudokuList()
-    else sudokuList.value.forEach((e,i)=> {
-      const randomNumberForIsShow = randomTwoNumberCreate(8)
+    else { 
+    sudokuList.value.forEach((e,i)=> {
+      const randomNumberForIsShow = randomTwoNumberCreate(sudokuLevel.value)
       sudokuListTable.value[i] = [...e?.map(e => { return { value: (e as number), isShow: randomNumberForIsShow.includes((e as number)), isAnswerTrue: randomNumberForIsShow.includes((e as number))}})] 
     })
-    logList.value = []
     logList.value.push({text: "SAYILAR YERLEŞTİRİLDİ", class: "text-orange-darken-1 text-center text-overline"})
     logList.value.push({text: "SUDOKUYU ÇÖZMEYE BAŞLAYABİLİRSİNİZ", class: "text-orange-darken-1 text-center text-overline"})
+  }
   };
 
   const createSpecificRandomNumber = (excludeList?: (number | undefined)[]) => {
@@ -70,5 +71,5 @@ export const useMainStore = defineStore("mainStore", () => {
     return randomNumberToReturn
   }
 
-  return { sudokuList, sudokuListTable, getRowDynamicClass, getColDynamicClass, logList, createSudokuList };
+  return { sudokuList, sudokuLevel, sudokuListTable, getRowDynamicClass, getColDynamicClass, logList, createSudokuList };
 });

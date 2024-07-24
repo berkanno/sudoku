@@ -45,12 +45,12 @@ export const useMainStore = defineStore("mainStore", () => {
     })
     if(sudokuList.value.some(e => e.includes(undefined))) createSudokuList()
     else sudokuList.value.forEach((e,i)=> {
-      const randomNumberForIsShow = randomTwoNumberCreate(5)
+      const randomNumberForIsShow = randomTwoNumberCreate(8)
       sudokuListTable.value[i] = [...e?.map(e => { return { value: (e as number), isShow: randomNumberForIsShow.includes((e as number)), isAnswerTrue: randomNumberForIsShow.includes((e as number))}})] 
     })
     logList.value = []
     logList.value.push({text: "SAYILAR YERLEŞTİRİLDİ", class: "text-orange-darken-1 text-center text-overline"})
-    logList.value.push({text: "SUDOKUYU ÇÖZMEYE BAŞLAYABİLİRSİNİZ", class: "text-teal-darken-1 text-center text-overline"})
+    logList.value.push({text: "SUDOKUYU ÇÖZMEYE BAŞLAYABİLİRSİNİZ", class: "text-orange-darken-1 text-center text-overline"})
   };
 
   const createSpecificRandomNumber = (excludeList?: (number | undefined)[]) => {
